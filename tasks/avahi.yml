@@ -1,0 +1,22 @@
+---
+
+- name: ensure avahi is installed
+  apt: name={{item}} state=present
+  with_items:
+    - avahi-daemon
+    - avahi-utils
+    - avahi-dnsconfd
+    - libavahi-core-dev
+
+- name: update avahi config
+  template:
+    src: avahi-daemon.conf.j2
+    dest: /etc/avahi/avahi-daemon.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart avahi-daemon
+
+- name: ensure avahi-daemon is running, and starts on boot
+  service: name=avahi-daemon state=started enabled=yes

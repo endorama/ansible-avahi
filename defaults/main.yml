@@ -1,0 +1,6 @@
+---
+
+avahi__hostname: "{{ansible_nodename}}"
+avahi__domain: local
+avahi__useipv4: 'yes'
+avahi__useipv6: 'no'
